@@ -5,14 +5,15 @@ import com.company.Person.Driver;
 import com.company.Person.Passanger;
 import com.company.Route;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public abstract class GroundTransport extends Transport {
     Blogger blogger;
 
     public GroundTransport(){}
-    public GroundTransport(int number, int amount, int[] timeTable, Route route, Driver driver, ArrayList<Passanger> passangers, Blogger blogger){
-        super(number, amount, timeTable, route, driver, passangers);
+    public GroundTransport(int number, int amount, Route route, Driver driver, List<Passanger> passangers, Blogger blogger) {
+        super(number, amount, route, driver, passangers);
+        this.setName("GroundTransport");
         this.blogger = blogger;
     }
 

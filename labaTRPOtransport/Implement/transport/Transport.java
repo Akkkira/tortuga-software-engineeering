@@ -7,7 +7,7 @@ import com.company.Route;
 import com.company.Station;
 
 import javax.net.ssl.HandshakeCompletedEvent;
-import java.util.ArrayList;
+import java.util.List;
 import java.util.HashMap;
 
 public abstract class Transport implements Payments {
@@ -17,12 +17,11 @@ public abstract class Transport implements Payments {
     private int amount;
     private Route route;
     private Driver driver;
-    private ArrayList<Passanger> passangers;
+    private List<Passanger> passangers;
 
     public Transport(){}
 
-    public Transport(String name, int number, int amount, Route route, Driver driver, ArrayList<Passanger> passangers){
-        this.setName(name);
+    public Transport(int number, int amount, Route route, Driver driver, List<Passanger> passangers){
         this.setNumber(number);
         this.setAmount(amount);
         this.setRoute(route);
@@ -31,16 +30,16 @@ public abstract class Transport implements Payments {
     }
 
 
-   /* public void stop(Station stop) { // TEST FUNCTION FOR ADDING AND DELETING PESSANGERS IN SPACE
-        ArrayList<Passanger> PassInTr = this.getPassangers();
-        ArrayList<Passanger> PassOnSt = stop.getPassangers();
+    public void stop(Station stop) { // TEST FUNCTION FOR ADDING AND DELETING PESSANGERS IN SPACE
+        List<Passanger> PassOnSt = stop.getPassangers();
         HashMap<String, Integer> needTr = new HashMap<String, Integer>();
-        for (int i = 0; i < PassOnSt.size(); i++) {
-            if(PassInTr.get(i).getOutStation().equals(stop.getName())) {
-                PassOnSt.add(PassInTr.get(i));
-                PassInTr.remove(i);
+        for (int i = 0; i < this.getPassangers().size(); i++) {
+            if(this.getPassangers().get(i).isNeedOut(stop.getName())) {
+                PassOnSt.add(this.getPassangers().get(i));
+                this.getPassangers().remove(i);
             }
-            needTr.put(PassOnSt.get(i).getTransport().getName(), PassOnSt.get(i).getTransport().getNumber());
+        }
+        /*needTr.put(PassOnSt.get(i).getTransport().getName(), PassOnSt.get(i).getTransport().getNumber());
             for(HashMap.Entry<String, Integer> item : needTr.entrySet()) {
                 if(item.getKey() == this.getName() && item.getValue() == this.getNumber()){
                     PassOnSt.get(i).setInTransport(true);
@@ -49,9 +48,8 @@ public abstract class Transport implements Payments {
                 else {
                     PassOnSt.get(i).setInTransport(false);
                 }
-            }
-        }
-    }*/
+            }*/
+    }
 
     @Override
     public abstract boolean check(String unit);
@@ -98,11 +96,11 @@ public abstract class Transport implements Payments {
         this.driver = driver;
     }
 
-    public ArrayList<Passanger> getPassangers() {
+    public List<Passanger> getPassangers() {
         return passangers;
     }
 
-    public void setPassangers(ArrayList<Passanger> passangers) {
+    public void setPassangers(List<Passanger> passangers) {
         this.passangers = passangers;
     }
 
